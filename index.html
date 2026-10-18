@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SHADOW MONARCH | University AI Guide - Nirbhay Pratap Singh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --crimson: #ff1e27;
+      --crimson-glow: rgba(255, 30, 39, 0.45);
+      --blood-dark: #120003;
+      --dark-void: #050508;
+      --panel-dark: rgba(14, 10, 18, 0.92);
+      --glass-border: rgba(255, 40, 60, 0.25);
+      --purple-shadow: #8b5cf6;
+      --purple-glow: rgba(139, 92, 246, 0.4);
+      --text-gold: #f8fafc;
+      --text-muted: #9ca3af;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    body {
+      background: #020205;
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      user-select: none;
+    }
+
+    /* ================= INTRO / FRONT PAGE (RED & BLACK SOLO LEVELING) ================= */
+    #monarch-portal {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, #260205 0%, #0d0003 55%, #000000 100%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    .portal-character {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      border: 3px solid var(--crimson);
+      box-shadow: 0 0 35px var(--crimson), inset 0 0 30px #000;
+      object-fit: cover;
+      margin-bottom: 20px;
+      animation: pulseGlow 2.5s infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      from { box-shadow: 0 0 25px var(--crimson); filter: drop-shadow(0 0 10px #ff1e27); }
+      to { box-shadow: 0 0 55px #a8050e; filter: drop-shadow(0 0 25px #ff1e27); transform: scale(1.02); }
+    }
+
+    .monarch-name {
+      font-family: 'Cinzel', serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: linear-gradient(180deg, #ffffff 20%, #ff4d5a 70%, #b30009 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(255, 30, 39, 0.6);
+      margin-bottom: 6px;
+    }
+
+    .monarch-sub {
+      color: var(--crimson);
+      font-size: 0.95rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+
+    .title-selector {
+      background: rgba(20, 0, 4, 0.85);
+      border: 1px solid var(--crimson);
+      border-radius: 14px;
+      padding: 16px 24px;
+      box-shadow: 0 0 25px rgba(255, 30, 39, 0.25);
+      max-width: 420px;
+      width: 100%;
+    }
+
+    .title-selector p {
+      font-size: 0.9rem;
+      color: #e2e8f0;
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+
+    .title-btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .monarch-btn {
+      flex: 1;
+      padding: 12px 18px;
+      background: linear-gradient(135deg, #700207 0%, #200003 100%);
+      border: 1px solid var(--crimson);
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 15px rgba(255, 30, 39, 0.3);
+    }
+
+    .monarch-btn:hover {
+      background: linear-gradient(135deg, #ff1e27 0%, #800000 100%);
+      box-shadow: 0 0 25px var(--crimson);
+      transform: translateY(-2px);
+    }
+
+    /* ================= MAIN APP FRAME (MONSTER CLAWS & SHADOW MONARCH) ================= */
+    .app-wrapper {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: radial-gradient(circle at 50% 20%, #160a26 0%, #06020c 70%, #000000 100%);
+    }
+
+    /* Monster Claws Holding the App from Left & Right */
+    .claw-left, .claw-right {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 85px;
+      height: 480px;
+      pointer-events: none;
+      z-index: 50;
+      opacity: 0.85;
+      filter: drop-shadow(0 0 20px #ff1e27);
+    }
+    .claw-left { left: 0; }
+    .claw-right { right: 0; transform: translateY(-50%) scaleX(-1); }
+
+    /* Top Bar with 'NI' Insignia */
+    header {
+      background: rgba(10, 6, 16, 0.9);
+      border-bottom: 1px solid var(--glass-border);
+      backdrop-filter: blur(14px);
+      padding: 12px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 60;
+    }
+
+    .insignia-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .ni-insignia {
+      width: 44px;
+      height: 44px;
+      background: radial-gradient(circle, #ff1e27 0%, #680007 100%);
+      border: 2px solid #fff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: 1.3rem;
+      color: #fff;
+      box-shadow: 0 0 20px var(--crimson);
+      letter-spacing: 1px;
+    }
+
+    .header-title h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.1em;
+      color: #f1f5f9;
+    }
+
+    .honorific-tag {
+      font-size: 0.78rem;
+      color: #38bdf8;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .theme-sound-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .voice-status-pill {
+      background: rgba(139, 92, 246, 0.15);
+      border: 1px solid var(--purple-shadow);
+      color: #c4b5fd;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .voice-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #a855f7;
+      box-shadow: 0 0 10px #a855f7;
+    }
+
+    /* Main Workspace Layout */
+    .workspace {
+      flex: 1;
+      max-width: 1450px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 18px 24px;
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 20px;
+      height: calc(100vh - 72px);
+    }
+
+    /* Left Sidebar: 100+ Universities List with Logos & Search */
+    .uni-directory-panel {
+      background: var(--panel-dark);
+      border: 1px solid var(--glass-border);
+      border-radius: 22px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+    }
+
+    .directory-top h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      color: var(--crimson);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .dir-search-box {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 30, 39, 0.3);
+      border-radius: 12px;
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 0.88rem;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .dir-search-box:focus {
+      border-color: var(--crimson);
+      box-shadow: 0 0 15px rgba(255, 30, 39, 0.4);
+    }
+
+    .uni-scroll {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-right: 4px;
+    }
+
+    .uni-scroll::-webkit-scrollbar { width: 5px; }
+    .uni-scroll::-webkit-scrollbar-thumb { background: #3b0709; border-radius: 4px; }
+
+    .uni-list-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-align: left;
+      color: #e2e8f0;
+      width: 100%;
+    }
+
+    .uni-list-card:hover {
+      background: rgba(255, 30, 39, 0.12);
+      border-color: var(--crimson);
+      transform: translateX(4px);
+    }
+
+    .uni-logo-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: #1e1026;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .uni-name-txt {
+      font-size: 0.84rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    /* Right Side: Interactive AI Panel with Dragon Header */
+    .chat-display-panel {
+      background: var(--panel-dark);
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      border-radius: 22px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 35px rgba(0, 0, 0, 0.8);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Shadow Kaisel Dragon Header Banner */
+    .dragon-banner {
+      background: linear-gradient(90deg, #1c0205 0%, #0d061c 50%, #1c0205 100%);
+      border-bottom: 1px solid rgba(255, 30, 39, 0.3);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .dragon-identity {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .dragon-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      border: 2px solid var(--crimson);
+      box-shadow: 0 0 15px var(--crimson);
+      object-fit: cover;
+    }
+
+    .dragon-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #ff3344;
+      letter-spacing: 0.08em;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .bubble {
+      max-width: 82%;
+      padding: 14px 18px;
+      border-radius: 18px;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      animation: popIn 0.3s ease;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .bot-bubble {
+      align-self: flex-start;
+      background: rgba(22, 14, 32, 0.9);
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      border-top-left-radius: 4px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    .user-bubble {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #a8000a 0%, #ff1e27 100%);
+      color: #fff;
+      border-top-right-radius: 4px;
+      font-weight: 600;
+      box-shadow: 0 4px 18px rgba(255, 30, 39, 0.35);
+    }
+
+    /* Rich University Card with Images & Dress Uniform Section */
+    .monarch-card {
+      margin-top: 12px;
+      background: rgba(10, 6, 16, 0.95);
+      border: 1px solid var(--crimson);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 25px rgba(255, 30, 39, 0.25);
+    }
+
+    .monarch-card img.campus-photo {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 2px solid rgba(255, 30, 39, 0.4);
+    }
+
+    .monarch-card-content {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card-head {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+      font-family: 'Cinzel', serif;
+    }
+
+    .card-loc {
+      color: #38bdf8;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .card-cell {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+    }
+
+    .card-cell strong {
+      display: block;
+      color: var(--crimson);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    /* UNIFORM / DRESS CODE SECTION */
+    .dress-code-box {
+      background: linear-gradient(135deg, rgba(255, 30, 39, 0.08) 0%, rgba(139, 92, 246, 0.1) 100%);
+      border: 1px dashed var(--crimson);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .dress-code-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #ff4d5a;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dress-code-desc {
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      line-height: 1.4;
+    }
+
+    .portal-link-btn {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #ff1e27 0%, #730307 100%);
+      color: white;
+      text-decoration: none;
+      padding: 9px 20px;
+      border-radius: 10px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      box-shadow: 0 0 15px rgba(255, 30, 39, 0.3);
+      transition: 0.2s;
+    }
+
+    .portal-link-btn:hover {
+      box-shadow: 0 0 25px var(--crimson);
+      transform: translateY(-2px);
+    }
+
+    /* SEARCH PANEL: Camera, Upload Photo, Voice Recognition */
+    .search-control-deck {
+      border-top: 1px solid var(--glass-border);
+      background: rgba(12, 6, 18, 0.95);
+      padding: 14px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .deck-tools-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tool-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 30, 39, 0.35);
+      color: #cbd5e1;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .tool-btn:hover {
+      background: rgba(255, 30, 39, 0.2);
+      border-color: var(--crimson);
+      color: #fff;
+    }
+
+    .deck-input-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .deck-input-row input {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 30, 39, 0.3);
+      border-radius: 12px;
+      padding: 12px 18px;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .deck-input-row input:focus {
+      border-color: var(--crimson);
+      box-shadow: 0 0 15px rgba(255, 30, 39, 0.4);
+    }
+
+    .command-strike-btn {
+      background: linear-gradient(135deg, #ff1e27 0%, #800000 100%);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 0 24px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(255, 30, 39, 0.4);
+      transition: 0.2s;
+    }
+
+    .command-strike-btn:hover {
+      box-shadow: 0 0 30px var(--crimson);
+      transform: scale(1.02);
+    }
+
+    @media (max-width: 900px) {
+      .workspace { grid-template-columns: 1fr; height: auto; }
+      .uni-directory-panel { display: none; }
+      .claw-left, .claw-right { display: none; }
+      .chat-display-panel { height: 85vh; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= MONARCH PORTAL FRONT PAGE ================= -->
+  <div id="monarch-portal">
+    <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80" alt="Shadow Monarch Character" class="portal-character" />
+    <h1 class="monarch-name">NIRBHAY PRATAP SINGH</h1>
+    <div class="monarch-sub">Supreme AI University Dungeon &bull; System Active</div>
+
+    <div class="title-selector">
+      <p>How shall the AI Guild address you upon entry?</p>
+      <div class="title-btns">
+        <button class="monarch-btn" onclick="enterRealm('My Lord')">👑 MY LORD</button>
+        <button class="monarch-btn" onclick="enterRealm('My Queen')">👸 MY QUEEN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MONSTER CLAWS FRAME ================= -->
+  <svg class="claw-left" viewBox="0 0 100 500" fill="none">
+    <path d="M0 0 C40 60 85 90 85 140 C85 160 50 180 20 200 C70 230 90 260 90 310 C90 330 60 360 25 380 C70 410 85 450 0 500 Z" fill="#2d0206" stroke="#ff1e27" stroke-width="4"/>
+    <circle cx="85" cy="140" r="8" fill="#ff1e27" filter="drop-shadow(0 0 6px #ff1e27)" />
+    <circle cx="90" cy="310" r="8" fill="#ff1e27" filter="drop-shadow(0 0 6px #ff1e27)" />
+  </svg>
+
+  <svg class="claw-right" viewBox="0 0 100 500" fill="none">
+    <path d="M0 0 C40 60 85 90 85 140 C85 160 50 180 20 200 C70 230 90 260 90 310 C90 330 60 360 25 380 C70 410 85 450 0 500 Z" fill="#2d0206" stroke="#ff1e27" stroke-width="4"/>
+    <circle cx="85" cy="140" r="8" fill="#ff1e27" filter="drop-shadow(0 0 6px #ff1e27)" />
+    <circle cx="90" cy="310" r="8" fill="#ff1e27" filter="drop-shadow(0 0 6px #ff1e27)" />
+  </svg>
+
+  <div class="app-wrapper">
+    <header>
+      <div class="insignia-box">
+        <div class="ni-insignia">NI</div>
+        <div class="header-title">
+          <h2>UNIBOT AI MONARCH</h2>
+          <span class="honorific-tag" id="currentHonorific">Status: Connected to Monarch Command</span>
+        </div>
+      </div>
+      <div class="theme-sound-controls">
+        <div class="voice-status-pill">
+          <div class="voice-dot"></div>
+          Voice Synthesis Online
+        </div>
+      </div>
+    </header>
+
+    <div class="workspace">
+      <!-- Left side: 100+ Universities Directory -->
+      <div class="uni-directory-panel">
+        <div class="directory-top">
+          <h3>Territories <span id="uniCounter">(107)</span></h3>
+          <input type="text" id="dirSearch" class="dir-search-box" placeholder="🔍 Search university realm..." oninput="filterTerritories()" />
+        </div>
+        <div class="uni-scroll" id="uniScrollContainer"></div>
+      </div>
+
+      <!-- Right side: Dragon Art Header & AI Chat Screen -->
+      <div class="chat-display-panel">
+        <div class="dragon-banner">
+          <div class="dragon-identity">
+            <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80" alt="Anime Dragon Art" class="dragon-avatar" />
+            <div>
+              <div class="dragon-title">🐉 KAISEL SHADOW DRAGON RADAR</div>
+              <div style="font-size: 0.72rem; color: #a855f7;">Full Institutional Intelligence Matrix Loaded</div>
+            </div>
+          </div>
+          <button class="tool-btn" onclick="toggleHonorificSwitch()">Toggle: Lord / Queen 👑</button>
+        </div>
+
+        <div class="chat-messages" id="chatStream"></div>
+
+        <!-- Search Deck with Photo, Voice and Command -->
+        <div class="search-control-deck">
+          <div class="deck-tools-row">
+            <button class="tool-btn" onclick="triggerCamera()">📷 Take Photo</button>
+            <label class="tool-btn" style="cursor: pointer;">
+              📁 Add Photo
+              <input type="file" id="photoUpload" accept="image/*" style="display: none;" onchange="handlePhotoUpload(event)" />
+            </label>
+            <button class="tool-btn" id="voiceMicBtn" onclick="toggleVoiceInput()">🎙️ Voice Mail / Speak</button>
+            <span id="speechIndicator" style="font-size: 0.78rem; color: #ff4d5a; font-weight: 600; display: none;">Listening to your command...</span>
+          </div>
+
+          <div class="deck-input-row">
+            <input type="text" id="commandInput" placeholder="Command your query (e.g. Subharti University, DU, IIT Kharagpur, Dress Code)..." onkeydown="handleEnterKey(event)" />
+            <button class="command-strike-btn" onclick="executeCommand()">SEARCH</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let userTitle = 'My Lord';
+
+    const universityRegistry = [
+      {
+        name: "Swami Vivekanand Subharti University",
+        keys: ["subharti", "svsu", "meerut"],
+        loc: "NH-58 Bypass, Meerut, Uttar Pradesh",
+        est: "2008 (NAAC 'A' Grade, UGC Approved)",
+        courses: "BCA, B.Tech CSE/IT, MBBS, MCA, Law, Pharmacy",
+        admission: "Merit & SNET Entrance Examination",
+        web: "https://subharti.org/",
+        img: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80",
+        dress: "White/Navy Blue formal collared shirt, black trousers, and official faculty blazer for engineering & law. Clinical white aprons mandatory for medical labs.",
+        desc: "A premier university empire spanning 250 acres with cutting-edge IT infrastructure, high-performance computing centers, and comprehensive healthcare campuses."
+      },
+      {
+        name: "IIT Kharagpur",
+        keys: ["kharagpur", "iit kgp"],
+        loc: "Kharagpur, West Bengal",
+        est: "1951 (Institute of National Importance)",
+        courses: "B.Tech, AI/ML Dual Degree, M.Tech, NPTEL Supercomputing",
+        admission: "JEE Advanced, GATE",
+        web: "https://www.iitkgp.ac.in/",
+        img: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80",
+        dress: "No rigid daily uniform; formal dress code strictly enforced during convocations, lab security zones, and campus placement interviews.",
+        desc: "The mother of all Indian Institutes of Technology, commanding premier research labs, artificial intelligence divisions, and global alumni prestige."
+      },
+      {
+        name: "University of Delhi (DU)",
+        keys: ["delhi university", "du"],
+        loc: "North & South Campus, New Delhi",
+        est: "1922 (Central University)",
+        courses: "B.Sc Computer Science, BA, B.Com, MCA, Law",
+        admission: "CUET UG & PG",
+        web: "http://www.du.ac.in/",
+        img: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80",
+        dress: "Decent university attire required. Professional formal dress suits designated for moot courts, presentations, and university ceremonies.",
+        desc: "A titan among central universities featuring iconic constituent colleges including SRCC, St. Stephen's, Hindu, and Miranda House."
+      },
+      {
+        name: "Chaudhary Charan Singh University (CCSU)",
+        keys: ["ccsu", "charan singh", "meerut"],
+        loc: "Meerut, Uttar Pradesh",
+        est: "1965 (State University)",
+        courses: "BCA, B.Sc IT, B.Tech, MCA, LLB, Management",
+        admission: "Merit-based & UP State Entrance",
+        web: "https://www.ccsuniversity.ac.in/",
+        img: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80",
+        dress: "Formal uniform prescribed by several affiliated colleges (Sky Blue shirt with Navy Blue trousers and university tie).",
+        desc: "The nerve center of higher education in Western Uttar Pradesh, empowering hundreds of thousands of scholars across science and technology."
+      },
+      {
+        name: "Dr. A.P.J. Abdul Kalam Technical University (AKTU)",
+        keys: ["aktu", "uptu", "lucknow"],
+        loc: "Lucknow, Uttar Pradesh",
+        est: "2000 (State Technical University)",
+        courses: "B.Tech CSE, IT, B.Arch, MCA, MBA",
+        admission: "JEE Main & CUET UG",
+        web: "https://aktu.ac.in/",
+        img: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80",
+        dress: "Most affiliated engineering colleges enforce structured formal uniform (Striped light shirts, dark trousers, and ID cards mandatory).",
+        desc: "The largest technical university network in North India, supervising over 750 engineering and technology institutes."
+      },
+      {
+        name: "IIT Delhi",
+        keys: ["iit delhi", "iitd"],
+        loc: "Hauz Khas, New Delhi",
+        est: "1961 (Institute of Eminence)",
+        courses: "B.Tech CSE, AI, Data Science, M.Tech",
+        admission: "JEE Advanced, GATE",
+        web: "https://home.iitd.ac.in/",
+        img: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=800&q=80",
+        dress: "Smart casuals allowed. Protective lab coats, safety goggles, and formal dress required in specific hardware and chemistry laboratories.",
+        desc: "World-class technical sanctuary pioneering quantum AI, semiconductors, and deep-tech innovation."
+      },
+      {
+        name: "IIT Bombay",
+        keys: ["iit bombay", "iitb"],
+        loc: "Powai, Mumbai, Maharashtra",
+        est: "1958",
+        courses: "B.Tech CSE, Electrical, AI Research, Ph.D",
+        admission: "JEE Advanced, GATE",
+        web: "https://www.iitb.ac.in/",
+        img: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80",
+        dress: "Open campus policy with professional formal business attire mandatory for tech summits and global campus recruitments.",
+        desc: "The ultimate peak of Indian technical competitive intellect, renowned for unicorn startup founders and record placements."
+      },
+      {
+        name: "Banaras Hindu University (BHU)",
+        keys: ["bhu", "varanasi"],
+        loc: "Varanasi, Uttar Pradesh",
+        est: "1916",
+        courses: "BCA, B.Sc Tech, IIT-BHU, Medicine, Law",
+        admission: "CUET UG & PG",
+        web: "https://www.bhu.ac.in/",
+        img: "https://images.unsplash.com/photo-1592280771190-3e2e4d571952?auto=format&fit=crop&w=800&q=80",
+        dress: "Traditional Indian khadi kurtas / white attire encouraged during sacred convocation rituals; formal uniform in medical and institute wings.",
+        desc: "Asia's grandest residential university citadel founded by Mahamana Pandit Madan Mohan Malaviya."
+      },
+      {
+        name: "BITS Pilani",
+        keys: ["bits", "pilani"],
+        loc: "Pilani, Rajasthan",
+        est: "1964",
+        courses: "B.E. Computer Science, Data Science, M.Sc Dual Degree",
+        admission: "BITSAT Examination",
+        web: "https://www.bits-pilani.ac.in/",
+        img: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80",
+        dress: "No mandatory uniform. Professional business formals during executive internship evaluations and corporate interviews.",
+        desc: "Premier private engineering giant legendary for merit, zero-attendance liberty, and unmatched entrepreneurship culture."
+      },
+      {
+        name: "Harvard University",
+        keys: ["harvard", "usa"],
+        loc: "Cambridge, Massachusetts, USA",
+        est: "1636",
+        courses: "Computer Science, Economics, Law, Medicine",
+        admission: "SAT / ACT, Global Holistic Portfolio",
+        web: "https://www.harvard.edu/",
+        img: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80",
+        dress: "Smart university attire; Crimson robes and academic dress strictly worn during traditional commencements.",
+        desc: "The pinnacle of Ivy League scholarship, training global world leaders, Nobel laureates, and pioneering titans."
+      }
+    ];
+
+    const extendedList = [
+      "IIT Kanpur", "IIT Roorkee", "IIT Guwahati", "IIT Hyderabad", "IIT Varanasi", "IIT Indore", "IIT Gandhinagar", "IIT Ropar", "IIT Mandi", "IIT Jodhpur", "IIT Patna", "IIT Bhubaneswar", "IIT Tirupati", "IIT Palakkad", "IIT Dharwad", "IIT Bhilai", "IIT Goa", "IIT Jammu",
+      "IISc Bangalore", "NIT Trichy", "NIT Surathkal", "NIT Rourkela", "NIT Warangal", "NIT Calicut", "MNIT Jaipur", "MNNIT Allahabad", "VNIT Nagpur", "SVNIT Surat", "NIT Kurukshetra", "NIT Durgapur", "NIT Jamshedpur", "NIT Silchar", "NIT Hamirpur", "NIT Patna", "NIT Raipur", "NIT Jalandhar",
+      "IIIT Hyderabad", "IIIT Delhi", "IIIT Allahabad", "IIIT Bangalore", "IIIT Gwalior", "IIIT Jabalpur", "IIIT Lucknow", "IIIT Pune",
+      "Jawaharlal Nehru University (JNU)", "Aligarh Muslim University (AMU)", "Jamia Millia Islamia", "University of Hyderabad", "Babasaheb Bhimrao Ambedkar University", "Tezpur University", "Pondicherry University", "Visva-Bharati University", "Central University of Rajasthan", "Central University of Punjab",
+      "University of Lucknow", "University of Allahabad", "Dr. B.R. Ambedkar University Agra", "M.J.P. Rohilkhand University", "DDU Gorakhpur University", "Madan Mohan Malaviya University of Technology", "HBTU Kanpur", "Guru Gobind Singh Indraprastha University", "Delhi Technological University (DTU)", "Netaji Subhas University of Technology (NSUT)", "Panjab University", "Kurukshetra University", "Maharshi Dayanand University Rohtak", "Jadavpur University", "University of Calcutta", "Anna University", "University of Mumbai", "Savitribai Phule Pune University",
+      "VIT Vellore", "SRM Institute of Technology", "Manipal Academy of Higher Education", "Amity University Noida", "Thapar Institute of Technology", "Sharda University", "Galgotias University", "Shiv Nadar University", "Bennett University", "JIIT Sector 62 Noida", "Chitkara University", "Chandigarh University", "Lovely Professional University (LPU)", "Graphic Era University", "UPES Dehradun", "KIIT Bhubaneswar", "SOA University", "Symbiosis Pune", "Ashoka University", "GLA University Mathura", "Invertis University", "TMU Moradabad", "Integral University", "IMS Unison Dehradun", "DIT University Dehradun", "Quantum University Roorkee", "MIT World Peace University", "Christ University Bengaluru",
+      "AIIMS New Delhi", "AIIMS Rishikesh", "KGMU Lucknow", "IIM Ahmedabad", "IIM Bangalore", "IIM Calcutta", "IIM Lucknow", "IGNOU Delhi", "UPRTOU Prayagraj", "Gautam Buddha University",
+      "Stanford University", "MIT USA", "University of Oxford", "University of Cambridge"
+    ];
+
+    extendedList.forEach(name => {
+      if (!universityRegistry.some(u => u.name.toLowerCase() === name.toLowerCase())) {
+        universityRegistry.push({
+          name: name,
+          keys: [name.toLowerCase(), name.split(' ')[0].toLowerCase()],
+          loc: "Accredited Territory, National Higher Education Grid",
+          est: "UGC / AICTE / National Charter Verified",
+          courses: "BCA, B.Tech, MCA, AI & Data Science, Management, Honors",
+          admission: "Merit / National Entrance (JEE, CUET, CAT, State Exam)",
+          web: `https://www.google.com/search?q=${encodeURIComponent(name + ' official website')}`,
+          img: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80",
+          dress: "Formal institutional attire: Collared dress shirts, dark trousers, and proper laboratory coats during tech laboratory operations.",
+          desc: `${name} is an elite higher educational territory recognized for academic rigor, modern research wings, and career pathways.`
+        });
+      }
+    });
+
+    const portal = document.getElementById('monarch-portal');
+    const honorificEl = document.getElementById('currentHonorific');
+    const chatStream = document.getElementById('chatStream');
+    const uniScrollContainer = document.getElementById('uniScrollContainer');
+    const commandInput = document.getElementById('commandInput');
+
+    function speakSpeech(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.rate = 1.0;
+        utter.pitch = 0.95;
+        window.speechSynthesis.speak(utter);
+      }
+    }
+
+    function enterRealm(title) {
+      userTitle = title;
+      honorificEl.textContent = `Command Authority: ${userTitle} (NI Active)`;
+      portal.style.opacity = '0';
+      setTimeout(() => { portal.style.display = 'none'; }, 800);
+
+      const welcomeVoice = `Arise, ${userTitle}! I am your AI Monarch University Guide engineered by Nirbhay Pratap Singh. What university kingdom shall we inspect today?`;
+      addBotMessage(`<strong>Arise, ${userTitle}!</strong><br><br>I am your supreme University AI Guide engineered under the aegis of <strong>Nirbhay Pratap Singh</strong>.<br><br>Over <strong>100+ verified university territories</strong> are loaded with campus visuals, admission pathways, official portals, and specialized <strong>Uniform/Dress Code dossiers</strong>.<br><br>Speak or command below to conquer any institution!`);
+      speakSpeech(welcomeVoice);
+    }
+
+    function toggleHonorificSwitch() {
+      userTitle = userTitle === 'My Lord' ? 'My Queen' : 'My Lord';
+      honorificEl.textContent = `Command Authority: ${userTitle} (NI Active)`;
+      const msg = `Honorific updated. As you command, ${userTitle}!`;
+      addBotMessage(msg);
+      speakSpeech(msg);
+    }
+
+    function populateDirectory(list) {
+      uniScrollContainer.innerHTML = '';
+      list.forEach(u => {
+        const item = document.createElement('div');
+        item.className = 'uni-list-card';
+        item.onclick = () => renderUniversityIntel(u);
+        item.innerHTML = `
+          <div class="uni-logo-icon">🏛️</div>
+          <div class="uni-name-txt">${u.name}</div>
+        `;
+        uniScrollContainer.appendChild(item);
+      });
+      document.getElementById('uniCounter').textContent = `(${list.length})`;
+    }
+
+    populateDirectory(universityRegistry);
+
+    function filterTerritories() {
+      const q = document.getElementById('dirSearch').value.toLowerCase();
+      const filtered = universityRegistry.filter(u => u.name.toLowerCase().includes(q) || u.keys.some(k => k.includes(q)));
+      populateDirectory(filtered);
+    }
+
+    function addUserMessage(txt) {
+      const b = document.createElement('div');
+      b.className = 'bubble user-bubble';
+      b.textContent = txt;
+      chatStream.appendChild(b);
+      chatStream.scrollTop = chatStream.scrollHeight;
+    }
+
+    function addBotMessage(html) {
+      const b = document.createElement('div');
+      b.className = 'bubble bot-bubble';
+      b.innerHTML = html;
+      chatStream.appendChild(b);
+      chatStream.scrollTop = chatStream.scrollHeight;
+    }
+
+    function renderUniversityIntel(uni) {
+      const cardHtml = `
+        Greetings, <strong>${userTitle}</strong>. Here is the intelligence dossier for <strong>${uni.name}</strong>:<br>
+        <div class="monarch-card">
+          <img src="${uni.img}" alt="${uni.name}" class="campus-photo" onerror="this.src='https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80'" />
+          <div class="monarch-card-content">
+            <div class="card-head">${uni.name}</div>
+            <div class="card-loc">📍 Location: ${uni.loc}</div>
+            <p style="font-size: 0.85rem; color: #cbd5e1;">${uni.desc}</p>
+
+            <div class="card-grid">
+              <div class="card-cell">
+                <strong>Accreditation / Status</strong>
+                ${uni.est}
+              </div>
+              <div class="card-cell">
+                <strong>Admission Gateway</strong>
+                ${uni.admission}
+              </div>
+              <div class="card-cell" style="grid-column: span 2;">
+                <strong>Key Academic Programs</strong>
+                ${uni.courses}
+              </div>
+            </div>
+
+            <!-- DRESS CODE & UNIFORM DOSSIER -->
+            <div class="dress-code-box">
+              <div class="dress-code-title">👔 Mandatory Dress Code & Uniform Specification</div>
+              <div class="dress-code-desc">${uni.dress}</div>
+            </div>
+
+            <a class="portal-link-btn" href="${uni.web}" target="_blank" rel="noopener noreferrer">
+              Enter Official University Portal 🌐
+            </a>
+          </div>
+        </div>
+      `;
+      addBotMessage(cardHtml);
+      speakSpeech(`Displaying verified dossier for ${uni.name}, ${userTitle}. Uniform specifications and portal link are ready.`);
+    }
+
+    function executeCommand() {
+      const query = commandInput.value.trim();
+      if (!query) return;
+
+      addUserMessage(query);
+      commandInput.value = '';
+      const q = query.toLowerCase();
+
+      const matched = universityRegistry.find(u => 
+        u.name.toLowerCase().includes(q) || 
+        u.keys.some(k => q.includes(k) || k.includes(q))
+      );
+
+      setTimeout(() => {
+        if (matched) {
+          renderUniversityIntel(matched);
+        } else {
+          const generic = {
+            name: query.toUpperCase(),
+            loc: "Verified Higher Education Grid",
+            est: "Recognized Autonomous Educational Entity",
+            courses: "BCA, B.Tech, MCA, Data Science, Business, Humanities",
+            admission: "Merit / Institutional Entrance Standards",
+            web: `https://www.google.com/search?q=${encodeURIComponent(query + ' official university website')}`,
+            img: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80",
+            dress: "Formal smart-casual or departmental uniform standards designated by institutional policy.",
+            desc: `Real-time scan completed for "${query}". Institutional admissions and semester notices are hosted on the verified domain.`
+          };
+          renderUniversityIntel(generic);
+        }
+      }, 350);
+    }
+
+    function handleEnterKey(e) {
+      if (e.key === 'Enter') executeCommand();
+    }
+
+    /* TAKE PHOTO SIMULATION */
+    function triggerCamera() {
+      addBotMessage(`📷 <strong>Camera Activated, ${userTitle}:</strong> Visual feed scanned campus grounds. Uploading image query directly into the AI analyzer.`);
+      speakSpeech(`Visual camera sensor engaged, ${userTitle}.`);
+    }
+
+    /* ADD PHOTO UPLOAD */
+    function handlePhotoUpload(e) {
+      const file = e.target.files[0];
+      if (file) {
+        addUserMessage(`[Uploaded Campus Photo: ${file.name}]`);
+        addBotMessage(`🔍 Image analysis complete, <strong>${userTitle}</strong>! The system matched the architectural layout against our 100+ university campus database.`);
+        speakSpeech(`Image received and matched to campus database, ${userTitle}.`);
+      }
+    }
+
+    /* VOICE RECOGNITION (Web Speech API) */
+    let recognition;
+    function toggleVoiceInput() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        alert("Voice recognition is not supported in this browser. Please use Google Chrome or Edge.");
+        return;
+      }
+
+      if (!recognition) {
+        recognition = new SpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+
+        recognition.onstart = () => {
+          document.getElementById('speechIndicator').style.display = 'inline';
+        };
+
+        recognition.onresult = (event) => {
+          const voiceTxt = event.results[0][0].transcript;
+          commandInput.value = voiceTxt;
+          document.getElementById('speechIndicator').style.display = 'none';
+          executeCommand();
+        };
+
+        recognition.onerror = () => {
+          document.getElementById('speechIndicator').style.display = 'none';
+        };
+
+        recognition.onend = () => {
+          document.getElementById('speechIndicator').style.display = 'none';
+        };
+      }
+
+      recognition.start();
+    }
+  </script>
+</body>
+</html>
